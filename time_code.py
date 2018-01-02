@@ -13,7 +13,7 @@ clock.pack(fill=BOTH, expand=1)
 clock.grid(row=0, column=0, padx=10, pady=2, sticky=N+S)
 
 #function to count the number of days in different months. For ex: If you run the script in January(the initial month is set as December).
-def daysInMonthCalculater(current_date,current_month,old_date,old_month,days_count,month_difference):
+def daysInMonthCalculater(current_date,current_month,old_date,old_month,days_count,month_difference,old_year):
     #calculates the total days in old and current months
     total_days_old_month = monthrange(old_year, old_month)
     remaining_days_old_month = total_days_old_month[1] - old_date
@@ -53,7 +53,7 @@ def tick():
     #calculate the days count if the days are in different months
     elif(current_month != old_month and current_year == old_year):
         month_difference = current_month - old_month
-        days_count = daysInMonthCalculater(current_date,current_month,old_date,old_month,days_count,month_difference)
+        days_count = daysInMonthCalculater(current_date,current_month,old_date,old_month,days_count,month_difference,old_year)
 
     #calculate the days count if the days are in different years
     elif(current_year != old_year):
@@ -66,16 +66,16 @@ def tick():
         if(month_difference < 1):
             old_year_days_count = current_date1 - old_date
         else:
-            old_year_days_count = daysInMonthCalculater(current_date1,current_month1,old_date,old_month,days_count,month_difference)
+            old_year_days_count = daysInMonthCalculater(current_date1,current_month1,old_date,old_month,days_count,month_difference,old_year)
 
         #find the remining days in current years and add it with the days in last year.
         old_date = 1
         old_month = 1
         month_difference = current_month - old_month
-        days_count = old_year_days_count + daysInMonthCalculater(current_date,current_month,old_date,old_month,days_count,month_difference)
+        days_count = old_year_days_count + daysInMonthCalculater(current_date,current_month,old_date,old_month,days_count,month_difference,old_year)
 
     # print ("days count : %d"%days_count)
-    remaining_seconds = total_seconds-( days_count*24*60*60 + current_hour*60*60 + current_minute*60 + current_seconds)
+    remaining_seconds = total_seconds-( days_count*24*60*60 + current_hour*60*60 + current_minute*60 + current_seconds) - 31 #temporary fix. 
     # print("The timer started on 14/12/17")
     # print("remaining seconds : %d"%remaining_seconds)
     # print("remianing days :%d"%(remaining_seconds/(3600*24)))
