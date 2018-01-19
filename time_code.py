@@ -80,7 +80,7 @@ def tick():
     # print("remaining seconds : %d"%remaining_seconds)
     # print("remianing days :%d"%(remaining_seconds/(3600*24)))
     remaining_days = remaining_seconds/(3600*24)
-    remaining_minute_percent = (remaining_seconds*100/total_seconds)
+    remaining_minute_percent = (remaining_days*100/365.25)
     # print("%0.2f"%remaining_minute_percent+"%")
     clock.config(text="%0.2f"%remaining_minute_percent+"%"+"\nseconds : %d"%remaining_seconds+"\nDays : %d"%remaining_days)
     clock.after(2, tick)
